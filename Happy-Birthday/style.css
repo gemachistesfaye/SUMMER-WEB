@@ -1,0 +1,130 @@
+body {
+    font-family: 'Poppins', sans-serif; /* A more modern font */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f0f2f5 0%, #e0e5ec 100%); /* Gradient background */
+    color: #333;
+    overflow: hidden; /* Prevent scrollbars from popping up with animations */
+}
+
+/* Optional: Add a subtle background animation for extra flair */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="%23d6e4f0" opacity="0.1"/></svg>');
+    background-size: 50px 50px;
+    animation: backgroundMove 60s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes backgroundMove {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+
+.container {
+    text-align: center;
+    z-index: 1; /* Ensure content is above background animation */
+}
+
+h1 {
+    color: #4a4a4a;
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+    padding: 40px;
+    width: 320px; /* Slightly wider card */
+    text-align: center;
+    position: relative; /* For potential future absolute positioning */
+    overflow: hidden; /* Ensures no content overflows during animation */
+}
+
+#greetingMessage {
+    font-size: 2.2em; /* Slightly larger */
+    font-weight: bold;
+    color: #e91e63; /* Pink color for greeting */
+    margin-bottom: 25px;
+    min-height: 1.2em; /* Prevent layout shift when text changes */
+    opacity: 0; /* Start hidden for animation */
+    transform: scale(0.8); /* Start smaller for animation */
+    transition: all 0.4s ease-out; /* Smooth transition for property changes */
+}
+
+/* Class added by JavaScript to trigger the animation */
+#greetingMessage.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+    color: #555;
+    font-size: 1.1em;
+}
+
+input[type="text"] {
+    width: calc(100% - 24px); /* Account for padding and border */
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* More rounded corners */
+    font-size: 1.1em;
+    box-sizing: border-box; /* Include padding/border in width */
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff; /* Highlight on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    padding: 12px 25px; /* Slightly larger padding */
+    border: none;
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+button:active {
+    transform: translateY(0); /* "Press" effect */
+    background-color: #004085;
+}
+
+/* Keyframes for the greeting message animation */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

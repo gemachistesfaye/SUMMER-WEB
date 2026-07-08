@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Interactive Digital Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>THIS DIGITAL LIBRARY</h1>
+    <p>Your online resource for books and knowledge.</p>
+    <button id="colorButton">Change Color</button>
+</header>
+<main>
+
+    <a href="https://forms.gle/w2V3XPA1J5WmBKCn7" class="button-link">REGISTER</a><br>
+    
+    <section id="search-section">
+        <input type="text" id="search-bar" placeholder="Search for a book..." />
+    </section>
+    
+    <section id="book-list">
+        <h2>Available Books</h2>
+        <ul id="books">
+            <!-- Book titles will be dynamically inserted here -->
+        </ul>
+    </section>
+    
+</main>
+<footer>
+    <p>&copy; 2023 My Interactive Digital Library</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Fetch books from the server when the page loads
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/books');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const books = await response.json();
+        const bookList = document.getElementById('books');
+
+        // Clear existing list items
+        bookList.innerHTML = '';
+
+        // Populate the list with book titles from the database
+        books.forEach(book => {
+            const li = document.createElement('li');
+            li.textContent = book.title; // Assuming 'title' is the property returned from the DB
+            bookList.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Error fetching books:', error);
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Animation Area -->
+        <div class="animation-area" id="animationArea">
+            <div class="loading-spinner" id="loadingSpinner"></div>
+            <div class="character-placeholder" id="characterPlaceholder">
+                <div class="avatar">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="briefcase"></div>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="form-container hidden" id="registerFormContainer">
+            <button class="close-btn" id="closeFormBtn">&times;</button>
+            <div class="form-box">
+                <h2>Create Account</h2>
+                <p>Fill in your details to get started</p>
+                <form id="registrationForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="regName" placeholder="Full name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="regEmail" placeholder="Email address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="regPassword" placeholder="Password" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="password" id="regConfirmPassword" placeholder="Confirm password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">REGISTER</button>
+                </form>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="login.html">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

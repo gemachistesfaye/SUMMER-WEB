@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Animation Area -->
+        <div class="animation-area" id="animationArea">
+            <div class="loading-spinner" id="loadingSpinner"></div>
+            <div class="character-placeholder" id="characterPlaceholder">
+                <div class="avatar">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <div class="briefcase"></div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="form-container hidden" id="loginFormContainer">
+            <button class="close-btn" id="closeFormBtn">&times;</button>
+            <div class="form-box">
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue to your account</p>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Email address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">SIGN IN</button>
+                </form>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="register.html">Create Account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+/* --- Variables --- */
+:root {
+    --primary-color: #2e7bff; /* A clean, slightly vibrant blue */
+    --accent-color: #4CAF50; /* Green for success/highlight */
+    --text-color-dark: #333;
+    --text-color-light: #fefefe;
+    --bg-color: #f0f2f5; /* Very light, almost white background */
+    --card-bg: #ffffff; /* Pure white card background */
+    --border-color: #e0e0e0; /* Light grey border */
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08); /* Soft, noticeable shadow */
+    --info-bg: #e6f7fa; /* Light blue for info boxes */
+    --warning-bg: #fffbe6; /* Light yellow for warnings */
+    --warning-text: #b38b00; /* Dark yellow text */
+
+    --font-main: 'Inter', sans-serif;
+
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    --border-radius-sm: 6px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 20px;
+}
+
+/* --- Base Styles --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%; /* Ensure html and body take full height */
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--text-color-dark);
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Center content vertically */
+    padding: var(--spacing-md); /* Padding around the wrapper */
+    -webkit-font-smoothing: antialiased;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: #0056b3; /* Darker shade of primary */
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: inherit;
+}
+
+/* --- Main Wrapper for Centering --- */
+.main-wrapper {
+    max-width: 600px; /* Max width for the entire app */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally within the wrapper */
+}
+
+/* --- Header --- */
+.app-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.app-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 700;
+}
+
+.app-subtitle {
+    font-size: 1.1em;
+    color: #666;
+    font-weight: 400;
+}
+
+/* --- The Booking App Card --- */
+.booking-app-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius-lg); /* Rounded corners for the card */
+    box-shadow: var(--shadow-light); /* Soft shadow */
+    padding: var(--spacing-xl);
+    width: 100%; /* Take full width of its parent (.main-wrapper) */
+    position: relative;
+    z-index: 10; /* Ensure it's above everything */
+    border: 1px solid var(--border-color); /* Subtle border */
+}
+
+.card-heading {
+    text-align: center;
+    font-size: 2em;
+    color: var(--text-color-dark);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+}
+
+/* --- Form Styles --- */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md); /* Space between rows */
+}
+
+.form-group {
+    margin-bottom: 0; /* Managed by form-row gap */
+}
+
+.booking-form label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    color: var(--text-color-dark);
+    font-size: 0.95em;
+}
+
+.booking-form input[type="text"],
+.booking-form input[type="tel"],
+.booking-form input[type="number"],
+.booking-form input[type="date"],
+.booking-form select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 1em;
+    outline: none;
+    background-color: var(--card-bg);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-appearance: none; /* Remove default styling for selects */
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 30px; /* Space for the arrow */
+}
+
+.booking-form input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0; /* Hide default date picker icon */
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(46, 123, 255, 0.15); /* Light focus ring */
+}
+
+/* Specific styling for passenger inputs in a row */
+.passenger-input-group {
+    flex-basis: 48%; /* Allows two inputs per row */
+}
+
+
+/* Date guidance message */
+.date-guidance {
+    font-size: 0.85em;
+    color: #777;
+    margin-top: var(--spacing-xs);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-sm);
+    background-color: var(--info-bg);
+    border: 1px solid rgba(46, 123, 255, 0.2);
+    display: none; /* Hidden by default, shown by JS */
+}
+
+.date-guidance.is-visible {
+    display: block;
+}
+
+.date-guidance.warning {
+    background-color: var(--warning-bg);
+    color: var(--warning-text);
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+/* Route Info Display */
+.route-info-display {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--info-bg);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(46, 123, 255, 0.2);
+    margin-bottom: var(--spacing-lg); /* Space before button */
+}
+
+.route-info-display h3 {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.route-info-display p {
+    font-size: 0.95em;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
+.route-info-display p:last-child {
+    margin-bottom: 0;
+}
+
+.route-info-display i {
+    color: var(--primary-color);
+}
+
+
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border-radius: var(--border-radius-sm);
+    font-size: 1.15em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    gap: var(--spacing-xs);
+    box-shadow: 0 2px 10px rgba(46, 123, 255, 0.3);
+}
+
+.btn-submit:hover {
+    background-color: #0060e6; /* Darker primary */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(46, 123, 255, 0.4);
+}
+
+/* --- Results & Confirmation Sections --- */
+.results-section,
+.confirmation-section {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl); /* More space from form */
+    border-top: 1px dashed var(--border-color); /* Separator line */
+    text-align: left;
+}
+
+.section-sub-heading {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+}
+
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.ticket-list li {
+    background-color: var(--bg-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    border-left: 5px solid var(--primary-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.ticket-list li span {
+    flex: 1 1 48%; /* Adjust for 2 columns */
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9em;
+    color: #555;
+}
+
+.ticket-list li strong {
+    color: var(--text-color-dark);
+}
+
+.ticket-list li .btn-small {
+    padding: 0.6em 1em;
+    font-size: 0.8em;
+    background-color: var(--accent-color);
+    color: var(--text-color-light);
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s ease;
+}
+
+.ticket-list li .btn-small:hover {
+    background-color: #429a46; /* Darker accent */
+}
+
+.no-results-message {
+    text-align: center;
+    color: #dc3545; /* Red for error */
+    padding: var(--spacing-md);
+    background-color: #fce8e8;
+    border: 1px solid #f8d4d4;
+    border-radius: var(--border-radius-sm);
+    margin-top: var(--spacing-md);
+}
+
+.confirmed-heading {
+    color: var(--accent-color); /* Green for confirmation */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.confirmation-section p {
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95em;
+}
+
+.confirmation-section strong {
+    color: var(--text-color-dark);
+}
+
+.confirmation-section .payment-info {
+    background-color: #e6f7ea; /* Light green info box */
+    border: 1px solid #d4ecd4;
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.simulated-sms-box {
+    background-color: #eff6fc; /* Light blue */
+    border: 1px dashed #cce0f0;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85em;
+    white-space: pre-wrap; /* Preserve line breaks */
+    font-family: monospace;
+    color: #555;
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.disclaimer {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: var(--spacing-sm);
+    text-align: center;
+}
+
+.btn-new-booking {
+    display: block;
+    width: auto;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: #6c757d; /* A neutral grey button */
+    color: var(--text-color-light);
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin: var(--spacing-lg) auto 0; /* Center the button */
+}
+.btn-new-booking:hover {
+    background-color: #5c636a; /* Darker grey */
+}
+
+/* --- Footer --- */
+.app-footer {
+    margin-top: var(--spacing-xl);
+    text-align: center;
+    font-size: 0.85em;
+    color: #888;
+}
+
+/* --- Utility / Hidden --- */
+.hidden {
+    display: none !important;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+    body {
+        padding: var(--spacing-sm);
+        align-items: flex-start; /* Align to top on small screens if content is long */
+    }
+
+    .app-header {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .app-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .booking-app-card {
+        padding: var(--spacing-lg);
+        border-radius: var(--border-radius-md);
+    }
+
+    .card-heading {
+        font-size: 1.6em;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr; /* Stack inputs vertically on small screens */
+    }
+
+    .booking-form input,
+    .booking-form select {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.95em;
+    }
+
+    .btn-submit {
+        padding: var(--spacing-sm);
+        font-size: 1.05em;
+    }
+
+    .results-section,
+    .confirmation-section {
+        padding-top: var(--spacing-lg);
+        margin-top: var(--spacing-lg);
+    }
+
+    .section-sub-heading {
+        font-size: 1.3em;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .ticket-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .ticket-list li span {
+        flex: none;
+        width: 100%;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .ticket-list li .btn-small {
+        width: 100%;
+        margin-top: var(--spacing-sm);
+    }
+
+    .payment-info {
+        padding: var(--spacing-sm);
+    }
+
+    .simulated-sms-box {
+        font-size: 0.8em;
+    }
+
+    .disclaimer {
+        font-size: 0.75em;
+    }
+
+    .btn-new-booking {
+        width: 100%;
+    }
+}

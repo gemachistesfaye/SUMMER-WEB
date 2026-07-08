@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethio-Djibouti Railway - Easy Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <header class="app-header">
+            <h1 class="app-title">Ethio-Djibouti Railway </h1>
+            <p class="app-subtitle">Connecting Ethiopia & Djibouti</p>
+        </header>
+
+        <div class="booking-app-card">
+            <h2 class="card-heading">Find Your Train</h2>
+
+            <form class="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="from-station">Departure Station</label>
+                        <select id="from-station" required>
+                            <option value="">Select departure</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="to-station">Arrival Station</label>
+                        <select id="to-station" required>
+                            <option value="">Select arrival</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departure-date">Departure Date</label>
+                        <input type="date" id="departure-date" required>
+                        <div class="date-guidance" id="departure-date-guidance"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-date">Return Date (Optional)</label>
+                        <input type="date" id="return-date">
+                        <div class="date-guidance" id="return-date-guidance"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ticket-class">Travel Class</label>
+                        <select id="ticket-class" required>
+                            <option value="economy">Economy</option>
+                            <option value="business">Business</option>
+                            <option value="first">First Class</option>
+                        </select>
+                    </div>
+                    <div class="form-group passenger-input-group">
+                        <label for="adult-passengers">Adults (12+)</label>
+                        <input type="number" id="adult-passengers" min="1" value="1" required>
+                    </div>
+                    <div class="form-group passenger-input-group">
+                        <label for="child-passengers">Children (2-11)</label>
+                        <input type="number" id="child-passengers" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passenger-name">Full Name</label>
+                    <input type="text" id="passenger-name" placeholder="e.g., John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="passenger-phone">Phone Number (+2519XXXXXXXX)</label>
+                    <input type="tel" id="passenger-phone" pattern="^\+2519\d{8}$" placeholder="+2519XXXXXXXX" required>
+                </div>
+
+                <div id="route-info-display" class="route-info-display hidden">
+                    <h3>Route Details:</h3>
+                    <p id="route-duration"><i class="far fa-clock"></i> Travel Time: </p>
+                    <p id="route-notes"><i class="fas fa-info-circle"></i> Notes: </p>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-search"></i> Search Tickets
+                </button>
+            </form>
+
+            <div id="booking-results" class="results-section hidden">
+                <h3 class="section-sub-heading">Available Tickets</h3>
+                <ul id="ticket-list" class="ticket-list">
+                    </ul>
+                <p id="no-results-message" class="no-results-message hidden">No tickets found for your criteria. Try different dates or routes.</p>
+            </div>
+
+            <div id="confirmation-message" class="confirmation-section hidden">
+                <h3 class="section-sub-heading confirmed-heading"><i class="fas fa-check-circle"></i> Booking Confirmed!</h3>
+                <p>Dear <strong id="conf-name"></strong>, your booking is requested. Details:</p>
+                <p><strong>Booking Ref:</strong> <span id="conf-ref"></span></p>
+                <p><strong>Route:</strong> <span id="conf-route"></span></p>
+                <p><strong>Departure:</strong> <span id="conf-departure-date"></span> at <span id="conf-departure-time"></span></p>
+                <p id="conf-return-info" class="hidden"><strong>Return:</strong> <span id="conf-return-date"></span> at <span id="conf-return-time"></span></p>
+                <p><strong>Adults:</strong> <span id="conf-adults"></span>, <strong>Children:</strong> <span id="conf-children"></span></p>
+                <p><strong>Class:</strong> <span id="conf-class"></span></p>
+                <p><strong>Total Amount:</strong> <span id="conf-amount"></span></p>
+                <div class="payment-info">
+                    <p>Please complete payment within **24 hours**. Instructions sent to: <strong id="conf-phone"></strong>.</p>
+                    <div class="simulated-sms-box">
+                        <span id="simulated-sms-text"></span>
+                    </div>
+                    <p class="disclaimer"><em>(This is a simulated message for demonstration.)</em></p>
+                </div>
+                <button class="btn-new-booking" onclick="window.location.reload();">Book Another Ticket</button>
+            </div>
+        </div><footer class="app-footer">
+            <p>&copy; 2025 Ethio-Djibouti Railway. All Rights Reserved.</p>
+        </footer>
+    </div><script src="script.js"></script>
+</body>
+</html>
