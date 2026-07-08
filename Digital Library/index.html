@@ -107,9 +107,10 @@
 
     <!-- Footer -->
     <footer>
-        <p><i class="fas fa-book-open"></i> Digital Library &copy; 2025. All rights reserved.</p>
+        <p><i class="fas fa-book-open"></i> Digital Library &copy; <span class="year"></span>. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
+    <script>document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());</script>
 </body>
 </html>
