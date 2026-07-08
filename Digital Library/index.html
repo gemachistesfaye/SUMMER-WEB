@@ -3,61 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Interactive Digital Library</title>
+    <title>Digital Library</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<header>
-    <h1>THIS DIGITAL LIBRARY</h1>
-    <p>Your online resource for books and knowledge.</p>
-    <button id="colorButton">Change Color</button>
-</header>
-<main>
+    <!-- Header -->
+    <header id="mainHeader">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>Digital Library</h1>
+            </div>
+            <p class="tagline">Your online resource for books and knowledge</p>
+            <div class="header-actions">
+                <button class="btn-color" id="colorButton"><i class="fas fa-palette"></i> Change Theme</button>
+                <a href="https://forms.gle/w2V3XPA1J5WmBKCn7" target="_blank" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
+            </div>
+        </div>
+    </header>
 
-    <a href="https://forms.gle/w2V3XPA1J5WmBKCn7" class="button-link">REGISTER</a><br>
-    
-    <section id="search-section">
-        <input type="text" id="search-bar" placeholder="Search for a book..." />
-    </section>
-    
-    <section id="book-list">
-        <h2>Available Books</h2>
-        <ul id="books">
-            <!-- Book titles will be dynamically inserted here -->
-        </ul>
-    </section>
-    
-</main>
-<footer>
-    <p>&copy; 2023 My Interactive Digital Library</p>
-</footer>
+    <!-- Main Content -->
+    <main>
+        <!-- Search & Filter -->
+        <section class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchBar" placeholder="Search books by title, author, or category...">
+            </div>
+            <div class="filters" id="filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="fiction">Fiction</button>
+                <button class="filter-btn" data-category="science">Science</button>
+                <button class="filter-btn" data-category="history">History</button>
+                <button class="filter-btn" data-category="technology">Technology</button>
+                <button class="filter-btn" data-category="philosophy">Philosophy</button>
+                <button class="filter-btn" data-category="self-help">Self-Help</button>
+            </div>
+        </section>
 
-<script src="script.js"></script>
-<script>
-// Fetch books from the server when the page loads
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const response = await fetch('/api/books');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const books = await response.json();
-        const bookList = document.getElementById('books');
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stat-card">
+                <i class="fas fa-books"></i>
+                <span id="totalBooks">0</span>
+                <p>Total Books</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-layer-group"></i>
+                <span id="totalCategories">0</span>
+                <p>Categories</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <span id="featuredCount">0</span>
+                <p>Featured</p>
+            </div>
+        </section>
 
-        // Clear existing list items
-        bookList.innerHTML = '';
+        <!-- Results Count -->
+        <div class="results-info">
+            <span id="resultsCount">Showing all books</span>
+        </div>
 
-        // Populate the list with book titles from the database
-        books.forEach(book => {
-            const li = document.createElement('li');
-            li.textContent = book.title; // Assuming 'title' is the property returned from the DB
-            bookList.appendChild(li);
-        });
-    } catch (error) {
-        console.error('Error fetching books:', error);
-    }
-});
-</script>
+        <!-- Book Grid -->
+        <section class="book-grid" id="bookGrid">
+            <!-- Books inserted by JS -->
+        </section>
 
+        <!-- No Results -->
+        <div class="no-results hidden" id="noResults">
+            <i class="fas fa-search"></i>
+            <h3>No books found</h3>
+            <p>Try a different search term or category</p>
+        </div>
+    </main>
+
+    <!-- Book Detail Modal -->
+    <div class="modal hidden" id="bookModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body">
+                <div class="modal-cover" id="modalCover"></div>
+                <div class="modal-info">
+                    <span class="modal-category" id="modalCategory"></span>
+                    <h2 id="modalTitle"></h2>
+                    <p class="modal-author" id="modalAuthor"></p>
+                    <div class="modal-rating" id="modalRating"></div>
+                    <p class="modal-desc" id="modalDesc"></p>
+                    <div class="modal-meta">
+                        <span><i class="fas fa-calendar"></i> <span id="modalYear"></span></span>
+                        <span><i class="fas fa-book"></i> <span id="modalPages"></span> pages</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="fas fa-book-open"></i> Digital Library &copy; 2025. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
