@@ -189,26 +189,38 @@ body {
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Clear button */
-.button.clear {
+/* Clear & Backspace buttons */
+.button.clear, .button.backspace {
     background: rgba(231, 76, 60, 0.2);
     color: #e74c3c;
 }
 
-.button.clear:hover {
+.button.clear:hover, .button.backspace:hover {
     background: rgba(231, 76, 60, 0.35);
 }
 
-/* Percent, Parens, Negate */
-.button.percent, .button.parens, .button.negate {
+/* Percent, Negate */
+.button.percent, .button.negate {
     background: rgba(255, 255, 255, 0.05);
     color: #aaa;
     font-size: 0.95em;
 }
 
-.button.percent:hover, .button.parens:hover, .button.negate:hover {
+.button.percent:hover, .button.negate:hover {
     background: rgba(255, 255, 255, 0.12);
     color: #fff;
+}
+
+/* Decimal button - make dot visible */
+.button.decimal {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.button.decimal:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 /* Equal button */

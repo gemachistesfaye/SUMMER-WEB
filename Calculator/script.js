@@ -59,6 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplay();
     }
 
+    // ===== Backspace =====
+    function backspace() {
+        if (currentInput === 'Error') {
+            clearCalculator();
+            return;
+        }
+        if (waitingForSecondOperand) return;
+        if (currentInput.length > 1) {
+            currentInput = currentInput.slice(0, -1);
+            if (currentInput === '-' || currentInput === '-0') currentInput = '0';
+        } else {
+            currentInput = '0';
+        }
+        updateDisplay();
+    }
+
     // ===== Negate =====
     function negate() {
         if (currentInput === '0') return;
@@ -201,6 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
             inputDecimal(target.textContent);
         } else if (target.classList.contains('clear')) {
             clearCalculator();
+        } else if (target.classList.contains('backspace')) {
+            backspace();
         } else if (target.classList.contains('equal')) {
             performCalculation();
         } else if (target.classList.contains('negate')) {
