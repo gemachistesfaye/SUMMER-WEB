@@ -502,9 +502,112 @@ footer i {
 }
 
 /* ===== Color Themes ===== */
-header.theme-green { background: linear-gradient(135deg, #1e8449, #27ae60); }
-header.theme-red { background: linear-gradient(135deg, #922b21, #e74c3c); }
-header.theme-purple { background: linear-gradient(135deg, #6c3483, #9b59b6); }
-header.theme-orange { background: linear-gradient(135deg, #d35400, #f39c12); }
-header.theme-teal { background: linear-gradient(135deg, #148f77, #1abc9c); }
-header.theme-pink { background: linear-gradient(135deg, #c2185b, #e91e63); }
+header.theme-green,
+header.theme-green::before { background: linear-gradient(135deg, #1e8449, #27ae60); }
+
+header.theme-red,
+header.theme-red::before { background: linear-gradient(135deg, #922b21, #e74c3c); }
+
+header.theme-purple,
+header.theme-purple::before { background: linear-gradient(135deg, #6c3483, #9b59b6); }
+
+header.theme-orange,
+header.theme-orange::before { background: linear-gradient(135deg, #d35400, #f39c12); }
+
+header.theme-teal,
+header.theme-teal::before { background: linear-gradient(135deg, #148f77, #1abc9c); }
+
+header.theme-pink,
+header.theme-pink::before { background: linear-gradient(135deg, #c2185b, #e91e63); }
+
+/* ===== Modal Actions ===== */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: inherit;
+}
+
+.modal-btn-fav {
+    background: #fdedec;
+    color: #e74c3c;
+}
+
+.modal-btn-fav:hover {
+    background: #e74c3c;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.modal-btn-fav.active {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.modal-btn-read {
+    background: #2e86c1;
+    color: #fff;
+}
+
+.modal-btn-read:hover {
+    background: #1a5276;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(46,134,193,0.4);
+}
+
+/* ===== Favorites Count ===== */
+.fav-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 0.6em;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.btn-fav-nav {
+    position: relative;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+    backdrop-filter: blur(5px);
+}
+
+.btn-fav-nav:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}

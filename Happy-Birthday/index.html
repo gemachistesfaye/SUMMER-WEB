@@ -3,17 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Greeter</title>
+    <title>Happy Birthday!</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Confetti Canvas -->
+    <canvas id="confetti"></canvas>
+
+    <!-- Floating Balloons -->
+    <div id="balloons"></div>
+
     <div class="container">
-        <h1>Birthday Greeter</h1>
-        <div class="card">
-            <p id="greetingMessage">Happy Birthday!</p>
-            <label for="nameInput">Enter Name:</label>
-            <input type="text" id="nameInput" placeholder="e.g., Gemachis">
-            <button id="greetButton">Greet</button>
+        <!-- Cake -->
+        <div class="cake" id="cake">
+            <div class="candle">
+                <div class="flame" id="flame"></div>
+            </div>
+            <div class="cake-tier top"></div>
+            <div class="cake-tier mid"></div>
+            <div class="cake-tier bottom"></div>
+        </div>
+
+        <!-- Greeting Card -->
+        <div class="card" id="card">
+            <div class="card-inner">
+                <div class="sparkle top-left"></div>
+                <div class="sparkle top-right"></div>
+                <div class="sparkle bottom-left"></div>
+                <div class="sparkle bottom-right"></div>
+
+                <h1 class="title" id="title">Happy Birthday!</h1>
+                <div class="emoji-big" id="emojiBig"></div>
+                <p class="subtitle" id="subtitle">Make a wish and blow out the candles!</p>
+
+                <!-- Form -->
+                <div class="form-group" id="formGroup">
+                    <label for="nameInput">
+                        <i class="fas fa-gift"></i> Whose special day is it?
+                    </label>
+                    <input type="text" id="nameInput" placeholder="Enter name...">
+                </div>
+
+                <div class="form-group" id="ageGroup">
+                    <label for="ageInput">
+                        <i class="fas fa-cake-candles"></i> How old are they turning?
+                    </label>
+                    <input type="number" id="ageInput" min="1" max="150" placeholder="Age">
+                </div>
+
+                <button class="btn-greet" id="greetButton">
+                    <i class="fas fa-wand-magic-sparkles"></i> Make Magic
+                </button>
+
+                <!-- Actions -->
+                <div class="actions hidden" id="actions">
+                    <button class="btn-action btn-blow" id="blowBtn">
+                        <i class="fas fa-wind"></i> Blow Candles
+                    </button>
+                    <button class="btn-action btn-share" id="shareBtn">
+                        <i class="fas fa-share-nodes"></i> Share
+                    </button>
+                    <button class="btn-action btn-reset" id="resetBtn">
+                        <i class="fas fa-rotate-right"></i> New
+                    </button>
+                </div>
+
+                <!-- Theme Picker -->
+                <div class="themes" id="themes">
+                    <button class="theme-btn active" data-theme="pink" style="background:#e91e63"></button>
+                    <button class="theme-btn" data-theme="blue" style="background:#2196f3"></button>
+                    <button class="theme-btn" data-theme="purple" style="background:#9c27b0"></button>
+                    <button class="theme-btn" data-theme="gold" style="background:#ff9800"></button>
+                    <button class="theme-btn" data-theme="green" style="background:#4caf50"></button>
+                </div>
+            </div>
         </div>
     </div>
 

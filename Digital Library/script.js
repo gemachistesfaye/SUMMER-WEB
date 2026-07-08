@@ -24,7 +24,11 @@ const books = [
 
 // ===== Color Themes =====
 const themes = ['', 'theme-green', 'theme-red', 'theme-purple', 'theme-orange', 'theme-teal', 'theme-pink'];
+const themeNames = ['Default', 'Green', 'Red', 'Purple', 'Orange', 'Teal', 'Pink'];
 let currentTheme = 0;
+
+// ===== Favorites =====
+let favorites = JSON.parse(localStorage.getItem('libraryFavorites') || '[]');
 
 // ===== Category Colors =====
 const categoryColors = {
@@ -46,9 +50,14 @@ const mainHeader = document.getElementById('mainHeader');
 const modal = document.getElementById('bookModal');
 const modalClose = document.getElementById('modalClose');
 const filters = document.getElementById('filters');
+const favNavBtn = document.getElementById('favNavBtn');
+const favBadge = document.getElementById('favBadge');
+const modalFavBtn = document.getElementById('modalFavBtn');
 
 let activeCategory = 'all';
 let searchTerm = '';
+let currentBookId = null;
+let showFavoritesOnly = false;
 
 // ===== Render Books =====
 function renderBooks() {
@@ -57,7 +66,8 @@ function renderBooks() {
                             book.author.toLowerCase().includes(searchTerm) ||
                             book.category.toLowerCase().includes(searchTerm);
         const matchesCategory = activeCategory === 'all' || book.category === activeCategory;
-        return matchesSearch && matchesCategory;
+        const matchesFav = !showFavoritesOnly || favorites.includes(book.id);
+        return matchesSearch && matchesCategory && matchesFav;
     });
 
     if (filtered.length === 0) {
@@ -106,6 +116,7 @@ function getStars(rating) {
 
 // ===== Modal =====
 function openModal(book) {
+    currentBookId = book.id;
     document.getElementById('modalCover').style.background = `linear-gradient(135deg, ${book.color}, ${book.color}dd)`;
     document.getElementById('modalCover').innerHTML = `<i class="fas ${book.icon}"></i>`;
     document.getElementById('modalCategory').textContent = book.category;
@@ -117,9 +128,37 @@ function openModal(book) {
     document.getElementById('modalDesc').textContent = book.desc;
     document.getElementById('modalYear').textContent = book.year < 0 ? `${Math.abs(book.year)} BC` : book.year;
     document.getElementById('modalPages').textContent = book.pages;
+
+    // Update fav button state
+    updateFavButton();
+
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
+
+function updateFavButton() {
+    if (!modalFavBtn || !currentBookId) return;
+    const isFav = favorites.includes(currentBookId);
+    modalFavBtn.innerHTML = isFav
+        ? '<i class="fas fa-heart"></i> Remove from Favorites'
+        : '<i class="far fa-heart"></i> Add to Favorites';
+    modalFavBtn.classList.toggle('active', isFav);
+}
+
+// Toggle favorite from modal
+modalFavBtn.addEventListener('click', () => {
+    if (!currentBookId) return;
+    const idx = favorites.indexOf(currentBookId);
+    if (idx > -1) {
+        favorites.splice(idx, 1);
+    } else {
+        favorites.push(currentBookId);
+    }
+    localStorage.setItem('libraryFavorites', JSON.stringify(favorites));
+    updateFavButton();
+    updateFavBadge();
+    renderBooks();
+});
 
 modalClose.addEventListener('click', () => {
     modal.classList.add('hidden');
@@ -152,8 +191,27 @@ filters.addEventListener('click', (e) => {
 // ===== Color Changer =====
 colorButton.addEventListener('click', () => {
     currentTheme = (currentTheme + 1) % themes.length;
-    themes.forEach(t => mainHeader.classList.remove(t));
+    themes.forEach(t => { if (t) mainHeader.classList.remove(t); });
     if (themes[currentTheme]) mainHeader.classList.add(themes[currentTheme]);
+    colorButton.innerHTML = `<i class="fas fa-palette"></i> ${themeNames[currentTheme]}`;
+});
+
+// ===== Favorites Nav =====
+function updateFavBadge() {
+    favBadge.textContent = favorites.length;
+    favBadge.style.display = favorites.length > 0 ? 'flex' : 'none';
+}
+
+favNavBtn.addEventListener('click', () => {
+    showFavoritesOnly = !showFavoritesOnly;
+    favNavBtn.style.background = showFavoritesOnly ? 'rgba(231,76,60,0.3)' : 'rgba(255,255,255,0.15)';
+    favNavBtn.innerHTML = showFavoritesOnly
+        ? `<i class="fas fa-heart"></i> All Books <span class="fav-badge" id="favBadge">${favorites.length}</span>`
+        : `<i class="fas fa-heart"></i> Favorites <span class="fav-badge" id="favBadge">${favorites.length}</span>`;
+    // Re-bind badge reference after innerHTML change
+    const newBadge = document.getElementById('favBadge');
+    if (newBadge) newBadge.style.display = favorites.length > 0 ? 'flex' : 'none';
+    renderBooks();
 });
 
 // ===== Stats =====
