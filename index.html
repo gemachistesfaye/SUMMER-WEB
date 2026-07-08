@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMMER WEB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f0c29;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .bg-orbs {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb:nth-child(1) { width: 400px; height: 400px; background: #667eea; top: -10%; left: -5%; }
+        .orb:nth-child(2) { width: 350px; height: 350px; background: #764ba2; bottom: -10%; right: -5%; animation-delay: -7s; }
+        .orb:nth-child(3) { width: 250px; height: 250px; background: #f093fb; top: 40%; left: 50%; animation-delay: -14s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 40px) scale(0.95); }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: #a5b4fc;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2em, 6vw, 3.5em);
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.05em;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 24px 80px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 28px 24px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 18px;
+            background: var(--accent-bg);
+            color: var(--accent);
+        }
+
+        .card h3 {
+            font-size: 1.15em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.88em;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.72em;
+            font-weight: 500;
+        }
+
+        .card-arrow {
+            position: absolute;
+            top: 24px; right: 24px;
+            color: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-arrow {
+            color: var(--accent);
+            transform: translate(3px, -3px);
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 30px 20px 40px;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.82em;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 60px 16px 30px; }
+            .stats { gap: 24px; }
+            .grid { padding: 16px 16px 60px; gap: 14px; }
+            .card { padding: 22px 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <header class="hero">
+        <div class="hero-badge">SUMMER 2024</div>
+        <h1>SUMMER WEB</h1>
+        <p>8 interactive front-end projects built with HTML, CSS & JavaScript during summer break</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-num">8</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Front-End</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="grid">
+        <a href="Analog-Clock/" class="card" style="--accent: #667eea; --accent-bg: rgba(102,126,234,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-clock"></i></div>
+            <h3>Analog Clock</h3>
+            <p>World clocks, stopwatch, smooth rAF animation, glow ring, and minute ticks</p>
+            <div class="card-tags">
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Animation</span>
+            </div>
+        </a>
+
+        <a href="Calculator/" class="card" style="--accent: #764ba2; --accent-bg: rgba(118,75,162,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-calculator"></i></div>
+            <h3>Calculator</h3>
+            <p>Glassmorphism UI, history panel, keyboard support, ripple effects</p>
+            <div class="card-tags">
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Keyboard</span>
+            </div>
+        </a>
+
+        <a href="Digital-Library/" class="card" style="--accent: #f093fb; --accent-bg: rgba(240,147,251,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-book-open"></i></div>
+            <h3>Digital Library</h3>
+            <p>20 built-in books, search, categories, favorites, color themes</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">LocalStorage</span>
+            </div>
+        </a>
+
+        <a href="Happy-Birthday/" class="card" style="--accent: #f59e0b; --accent-bg: rgba(245,158,11,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-cake-candles"></i></div>
+            <h3>Happy Birthday</h3>
+            <p>Confetti, animated cake, balloons, 5 themes, age selector</p>
+            <div class="card-tags">
+                <span class="tag">CSS</span>
+                <span class="tag">Animation</span>
+                <span class="tag">Canvas</span>
+            </div>
+        </a>
+
+        <a href="Login/" class="card" style="--accent: #4caf50; --accent-bg: rgba(76,175,80,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-user-astronaut"></i></div>
+            <h3>Login</h3>
+            <p>Eye-tracking character, particles, glassmorphism, password strength</p>
+            <div class="card-tags">
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Animation</span>
+            </div>
+        </a>
+
+        <a href="Rock-Paper-Scissors/" class="card" style="--accent: #ef4444; --accent-bg: rgba(239,68,68,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-hand-scissors"></i></div>
+            <h3>Rock Paper Scissors</h3>
+            <p>3 game modes, emoji icons, streak tracking, stats bar, keyboard support</p>
+            <div class="card-tags">
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Game</span>
+            </div>
+        </a>
+
+        <a href="To-Do-List/" class="card" style="--accent: #06b6d4; --accent-bg: rgba(6,182,212,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-check-double"></i></div>
+            <h3>To-Do List</h3>
+            <p>Priority levels, filters, progress bar, smooth animations</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">LocalStorage</span>
+            </div>
+        </a>
+
+        <a href="Train-Book/" class="card" style="--accent: #8b5cf6; --accent-bg: rgba(139,92,246,0.15);">
+            <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            <div class="card-icon"><i class="fas fa-train"></i></div>
+            <h3>Train Book</h3>
+            <p>Ethiopian railway booking system with seat selection and payment flow</p>
+            <div class="card-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+        </a>
+    </main>
+
+    <footer>
+        <p>SUMMER WEB &copy; <span id="year"></span> &mdash; Built with <i class="fas fa-heart" style="color:#ef4444;"></i> by <a href="https://github.com/gemachistesfaye">gemachistesfaye</a></p>
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
