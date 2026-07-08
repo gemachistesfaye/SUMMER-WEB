@@ -7,74 +7,96 @@ document.addEventListener('DOMContentLoaded', () => {
     const character = document.getElementById('character');
     const closeFormBtn = document.getElementById('closeFormBtn');
 
-    // ===== Create Particles =====
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 40; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (6 + Math.random() * 10) + 's';
-        p.style.animationDelay = (Math.random() * 8) + 's';
-        p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
-        particlesContainer.appendChild(p);
+    const isMobile = window.innerWidth <= 480 || 'ontouchstart' in window;
+
+    // ===== Create Particles (desktop only) =====
+    if (!isMobile) {
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (6 + Math.random() * 10) + 's';
+            p.style.animationDelay = (Math.random() * 8) + 's';
+            p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+            particlesContainer.appendChild(p);
+        }
     }
 
-    // ===== Eye Tracking =====
-    const leftPupil = document.getElementById('leftPupil');
-    const rightPupil = document.getElementById('rightPupil');
-    const mouth = document.getElementById('mouth');
+    // ===== Eye Tracking (desktop only) =====
+    if (!isMobile) {
+        const leftPupil = document.getElementById('leftPupil');
+        const rightPupil = document.getElementById('rightPupil');
+        const mouth = document.getElementById('mouth');
 
-    document.addEventListener('mousemove', (e) => {
-        if (!character) return;
-        const rect = character.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 3;
-        const dx = e.clientX - cx;
-        const dy = e.clientY - cy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxMove = 4;
-        const moveX = (dx / Math.max(dist, 1)) * maxMove;
-        const moveY = (dy / Math.max(dist, 1)) * maxMove;
+        document.addEventListener('mousemove', (e) => {
+            if (!character) return;
+            const rect = character.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 3;
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const maxMove = 4;
+            const moveX = (dx / Math.max(dist, 1)) * maxMove;
+            const moveY = (dy / Math.max(dist, 1)) * maxMove;
 
-        if (leftPupil) leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        if (rightPupil) rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            if (leftPupil) leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            if (rightPupil) rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
 
-        // Mouth reacts to mouse
-        if (mouth) {
-            if (e.clientY < cy - 60) {
-                mouth.className = 'mouth surprised';
-            } else if (e.clientY > cy + 40) {
-                mouth.className = 'mouth';
-            } else {
-                mouth.className = 'mouth happy';
+            if (mouth) {
+                if (e.clientY < cy - 60) {
+                    mouth.className = 'mouth surprised';
+                } else if (e.clientY > cy + 40) {
+                    mouth.className = 'mouth';
+                } else {
+                    mouth.className = 'mouth happy';
+                }
             }
-        }
-    });
+        });
+    }
 
     // ===== Animation Sequence =====
-    setTimeout(() => {
-        if (character) character.classList.add('visible');
-
+    if (isMobile) {
+        // On mobile: skip animation, show form immediately
+        if (animationArea) animationArea.style.display = 'none';
+        formContainer.classList.remove('hidden');
+        formContainer.classList.add('visible');
+    } else {
+        // Desktop: play character animation
         setTimeout(() => {
-            animationArea.style.opacity = '0';
+            if (character) character.classList.add('visible');
+
             setTimeout(() => {
-                animationArea.style.display = 'none';
-                formContainer.classList.remove('hidden');
-                formContainer.classList.add('visible');
-            }, 600);
-        }, 2200);
-    }, 800);
+                animationArea.style.opacity = '0';
+                setTimeout(() => {
+                    animationArea.style.display = 'none';
+                    formContainer.classList.remove('hidden');
+                    formContainer.classList.add('visible');
+                }, 600);
+            }, 2200);
+        }, 800);
+    }
 
     // ===== Close Button =====
     closeFormBtn.addEventListener('click', () => {
         formContainer.classList.remove('visible');
         formContainer.classList.add('hidden');
-        animationArea.style.display = 'flex';
-        animationArea.style.opacity = '1';
-        if (character) character.classList.remove('visible');
-        setTimeout(() => {
-            if (character) character.classList.add('visible');
-        }, 100);
+
+        if (isMobile) {
+            // On mobile, just re-show the form after a beat
+            setTimeout(() => {
+                formContainer.classList.remove('hidden');
+                formContainer.classList.add('visible');
+            }, 300);
+        } else {
+            animationArea.style.display = 'flex';
+            animationArea.style.opacity = '1';
+            if (character) character.classList.remove('visible');
+            setTimeout(() => {
+                if (character) character.classList.add('visible');
+            }, 100);
+        }
     });
 
     // ===== Toggle Password Visibility =====
@@ -134,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== Ripple Effect =====
     document.querySelectorAll('.submit-btn').forEach(btn => {
-        btn.addEventListener('click', function (e) {
+        btn.addEventListener('click', function () {
             const ripple = this.querySelector('.btn-ripple');
             if (ripple) {
                 ripple.style.width = '0';
@@ -242,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // ===== Social Button Hover Effects =====
+    // ===== Social Button Effects =====
     document.querySelectorAll('.social-btn').forEach(btn => {
         btn.addEventListener('click', function () {
             this.style.transform = 'scale(0.9)';
