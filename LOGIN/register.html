@@ -8,43 +8,96 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="container">
         <!-- Animation Area -->
         <div class="animation-area" id="animationArea">
-            <div class="loading-spinner" id="loadingSpinner"></div>
-            <div class="character-placeholder" id="characterPlaceholder">
-                <div class="avatar">
-                    <i class="fas fa-user-plus"></i>
+            <div class="character" id="character">
+                <div class="character-body">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eye left-eye">
+                                <div class="pupil" id="leftPupil"></div>
+                            </div>
+                            <div class="eye right-eye">
+                                <div class="pupil" id="rightPupil"></div>
+                            </div>
+                            <div class="mouth happy" id="mouth"></div>
+                        </div>
+                    </div>
+                    <div class="torso"></div>
+                    <div class="arm left-arm wave"></div>
+                    <div class="arm right-arm"></div>
                 </div>
-                <div class="briefcase"></div>
+                <div class="shadow"></div>
+            </div>
+            <div class="loading-dots" id="loadingDots">
+                <span></span><span></span><span></span>
             </div>
         </div>
 
         <!-- Register Form -->
         <div class="form-container hidden" id="registerFormContainer">
-            <button class="close-btn" id="closeFormBtn">&times;</button>
+            <button class="close-btn" id="closeFormBtn">
+                <i class="fas fa-xmark"></i>
+            </button>
             <div class="form-box">
+                <div class="form-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
                 <h2>Create Account</h2>
-                <p>Fill in your details to get started</p>
+                <p class="subtitle">Fill in your details to get started</p>
+
                 <form id="registrationForm">
                     <div class="input-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="regName" placeholder="Full name" required>
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <input type="text" id="regName" placeholder="Full name" required autocomplete="name">
+                        <div class="input-focus-line"></div>
                     </div>
+
                     <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="regEmail" placeholder="Email address" required>
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="regEmail" placeholder="Email address" required autocomplete="email">
+                        <div class="input-focus-line"></div>
                     </div>
+
                     <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="regPassword" placeholder="Password" required>
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="regPassword" placeholder="Password" required autocomplete="new-password">
+                        <button type="button" class="toggle-pass" id="toggleRegPass">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="input-focus-line"></div>
                     </div>
+
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                        <span class="strength-text" id="strengthText"></span>
+                    </div>
+
                     <div class="input-group">
-                        <i class="fas fa-check-circle"></i>
-                        <input type="password" id="regConfirmPassword" placeholder="Confirm password" required>
+                        <div class="input-icon"><i class="fas fa-check-circle"></i></div>
+                        <input type="password" id="regConfirmPassword" placeholder="Confirm password" required autocomplete="new-password">
+                        <button type="button" class="toggle-pass" id="toggleConfirmPass">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="input-focus-line"></div>
                     </div>
-                    <button type="submit" class="submit-btn">REGISTER</button>
+
+                    <button type="submit" class="submit-btn" id="registerBtn">
+                        <span class="btn-text">REGISTER</span>
+                        <span class="btn-loader"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        <div class="btn-ripple"></div>
+                    </button>
                 </form>
+
                 <div class="form-footer">
                     <p>Already have an account? <a href="login.html">Sign In</a></p>
                 </div>

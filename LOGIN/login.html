@@ -8,35 +8,101 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="container">
         <!-- Animation Area -->
         <div class="animation-area" id="animationArea">
-            <div class="loading-spinner" id="loadingSpinner"></div>
-            <div class="character-placeholder" id="characterPlaceholder">
-                <div class="avatar">
-                    <i class="fas fa-user-astronaut"></i>
+            <div class="character" id="character">
+                <div class="character-body">
+                    <div class="head">
+                        <div class="face">
+                            <div class="eye left-eye">
+                                <div class="pupil" id="leftPupil"></div>
+                            </div>
+                            <div class="eye right-eye">
+                                <div class="pupil" id="rightPupil"></div>
+                            </div>
+                            <div class="mouth" id="mouth"></div>
+                        </div>
+                    </div>
+                    <div class="torso"></div>
+                    <div class="arm left-arm"></div>
+                    <div class="arm right-arm"></div>
                 </div>
-                <div class="briefcase"></div>
+                <div class="shadow"></div>
+            </div>
+            <div class="loading-dots" id="loadingDots">
+                <span></span><span></span><span></span>
             </div>
         </div>
 
         <!-- Login Form -->
         <div class="form-container hidden" id="loginFormContainer">
-            <button class="close-btn" id="closeFormBtn">&times;</button>
+            <button class="close-btn" id="closeFormBtn">
+                <i class="fas fa-xmark"></i>
+            </button>
             <div class="form-box">
+                <div class="form-icon">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
                 <h2>Welcome Back</h2>
-                <p>Sign in to continue to your account</p>
+                <p class="subtitle">Sign in to continue to your account</p>
+
                 <form id="loginForm">
                     <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="loginEmail" placeholder="Email address" required>
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" placeholder="Email address" required autocomplete="email">
+                        <div class="input-focus-line"></div>
                     </div>
+
                     <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+                        <button type="button" class="toggle-pass" id="toggleLoginPass">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="input-focus-line"></div>
                     </div>
-                    <button type="submit" class="submit-btn">SIGN IN</button>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="loginBtn">
+                        <span class="btn-text">SIGN IN</span>
+                        <span class="btn-loader"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        <div class="btn-ripple"></div>
+                    </button>
                 </form>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button class="social-btn github">
+                        <i class="fab fa-github"></i>
+                    </button>
+                    <button class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                </div>
+
                 <div class="form-footer">
                     <p>Don't have an account? <a href="register.html">Create Account</a></p>
                 </div>
