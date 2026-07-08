@@ -12,33 +12,36 @@
         <div class="todo-app">
             <!-- Header -->
             <div class="app-header">
-                <h2><i class="fas fa-list-check"></i> My Tasks</h2>
-                <p class="app-subtitle" id="dateDisplay"></p>
-            </div>
-
-            <!-- Stats -->
-            <div class="stats-bar">
-                <div class="stat"><span id="totalCount">0</span><p>Total</p></div>
-                <div class="stat active"><span id="pendingCount">0</span><p>Pending</p></div>
-                <div class="stat done"><span id="doneCount">0</span><p>Done</p></div>
+                <div class="header-top">
+                    <h2><i class="fas fa-check-double"></i> My Tasks</h2>
+                    <p class="app-subtitle" id="dateDisplay"></p>
+                </div>
+                <!-- Progress Bar -->
+                <div class="progress-wrap">
+                    <div class="progress-info">
+                        <span>Progress</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
             </div>
 
             <!-- Input -->
-            <div class="input-row">
-                <input type="text" id="input-box" placeholder="What needs to be done?">
-                <select id="priority-select">
-                    <option value="low">Low</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="high">High</option>
-                </select>
+            <div class="input-wrap">
+                <input type="text" id="input-box" placeholder="Add a new task..." autofocus>
                 <button id="add-button"><i class="fas fa-plus"></i></button>
             </div>
 
-            <!-- Filters -->
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="pending">Pending</button>
-                <button class="filter-btn" data-filter="done">Done</button>
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">To Do</button>
+                    <button class="filter-btn" data-filter="done">Done</button>
+                </div>
+                <span class="task-count" id="taskCount">0 tasks</span>
             </div>
 
             <!-- Task List -->
@@ -46,13 +49,14 @@
 
             <!-- Empty State -->
             <div class="empty-state" id="emptyState">
-                <i class="fas fa-clipboard-list"></i>
-                <p>No tasks yet. Add one above!</p>
+                <div class="empty-icon">🎉</div>
+                <h3>All caught up!</h3>
+                <p>Add a task above to get started</p>
             </div>
 
-            <!-- Clear All -->
-            <div class="clear-all hidden" id="clearAll">
-                <button id="clearAllBtn"><i class="fas fa-trash-can"></i> Clear Completed</button>
+            <!-- Clear Done -->
+            <div class="footer-bar hidden" id="clearAll">
+                <button id="clearAllBtn"><i class="fas fa-broom"></i> Clear completed</button>
             </div>
         </div>
     </div>
