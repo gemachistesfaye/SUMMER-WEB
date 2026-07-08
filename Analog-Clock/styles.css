@@ -11,14 +11,15 @@ body {
     min-height: 100vh;
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     font-family: 'Segoe UI', Arial, sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .clock-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
+    padding: 20px;
 }
 
 /* ===== Clock Face ===== */
@@ -33,6 +34,29 @@ body {
         0 0 30px rgba(0, 0, 0, 0.4),
         0 0 60px rgba(102, 126, 234, 0.2),
         inset 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: clockPulse 3s ease-in-out infinite;
+}
+
+@keyframes clockPulse {
+    0%, 100% { box-shadow: 0 0 30px rgba(0,0,0,0.4), 0 0 60px rgba(102,126,234,0.2), inset 0 0 20px rgba(0,0,0,0.1); }
+    50% { box-shadow: 0 0 30px rgba(0,0,0,0.4), 0 0 80px rgba(102,126,234,0.35), inset 0 0 20px rgba(0,0,0,0.1); }
+}
+
+.glow-ring {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    pointer-events: none;
+    animation: ringGlow 4s ease-in-out infinite;
+}
+
+@keyframes ringGlow {
+    0%, 100% { border-color: rgba(102,126,234,0.2); }
+    50% { border-color: rgba(102,126,234,0.5); }
 }
 
 .clock-face {
@@ -42,8 +66,31 @@ body {
     border-radius: 50%;
 }
 
-/* ===== Tick Marks ===== */
-.tick {
+/* ===== Minute Ticks ===== */
+.minute-tick {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    transform-origin: center center;
+    transform: translateX(-50%) rotate(calc(var(--i) * 6deg));
+    pointer-events: none;
+}
+
+.minute-tick::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 6px;
+    background: #bbb;
+}
+
+/* ===== Hour Ticks ===== */
+.hour-tick {
     position: absolute;
     top: 0;
     left: 50%;
@@ -51,17 +98,18 @@ body {
     height: 100%;
     transform-origin: center center;
     transform: translateX(-50%) rotate(calc(var(--i) * 30deg));
+    pointer-events: none;
 }
 
-.tick::before {
+.hour-tick::before {
     content: '';
     position: absolute;
-    top: 8px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 2px;
-    height: 12px;
-    background: #555;
+    width: 3px;
+    height: 14px;
+    background: #444;
     border-radius: 2px;
 }
 
@@ -74,13 +122,14 @@ body {
     height: 100%;
     display: flex;
     justify-content: center;
+    pointer-events: none;
     transform-origin: center center;
     transform: translate(-50%, -50%) rotate(calc(var(--i) * 30deg));
 }
 
 .number span {
     display: block;
-    margin-top: 22px;
+    margin-top: 24px;
     font-size: 18px;
     font-weight: 700;
     color: #1a1a2e;
@@ -99,29 +148,38 @@ body {
 
 .hour-hand {
     width: 6px;
-    height: 80px;
-    background: linear-gradient(to top, #1a1a2e, #333);
+    height: 75px;
+    background: linear-gradient(to top, #1a1a2e, #444);
     margin-left: -3px;
     z-index: 3;
-    transition: none;
 }
 
 .minute-hand {
     width: 4px;
-    height: 110px;
-    background: linear-gradient(to top, #1a1a2e, #555);
+    height: 105px;
+    background: linear-gradient(to top, #1a1a2e, #666);
     margin-left: -2px;
     z-index: 4;
-    transition: none;
 }
 
 .second-hand {
     width: 2px;
-    height: 120px;
+    height: 115px;
     background: linear-gradient(to top, #e74c3c, #ff6b6b);
     margin-left: -1px;
     z-index: 5;
-    transition: none;
+}
+
+.second-hand::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 30px;
+    background: #e74c3c;
+    border-radius: 2px;
 }
 
 /* ===== Center Dot ===== */
@@ -135,7 +193,8 @@ body {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.6);
+    border: 2px solid #fff;
 }
 
 /* ===== Digital Display ===== */
@@ -163,16 +222,206 @@ body {
     margin-top: 5px;
 }
 
+/* ===== Tabs ===== */
+.tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tab {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.tab.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border-color: transparent;
+}
+
+.tab i {
+    margin-right: 6px;
+}
+
+/* ===== Panels ===== */
+.panel {
+    width: 100%;
+    max-width: 360px;
+}
+
+.panel.hidden {
+    display: none;
+}
+
+/* ===== World Clock ===== */
+.world-clock {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.world-city {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s, border-color 0.3s;
+}
+
+.world-city:hover {
+    transform: translateY(-2px);
+    border-color: rgba(102, 126, 234, 0.4);
+}
+
+.world-city .city-name {
+    font-size: 0.75em;
+    color: #888;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.world-city .city-time {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #667eea;
+    font-variant-numeric: tabular-nums;
+}
+
+.world-city .city-flag {
+    font-size: 1.2em;
+    margin-bottom: 4px;
+}
+
+/* ===== Stopwatch ===== */
+.stopwatch-display {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #667eea;
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.stopwatch-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.sw-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sw-btn:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.sw-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.sw-start {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+}
+
+.sw-lap {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    box-shadow: 0 4px 15px rgba(41, 128, 185, 0.4);
+}
+
+.sw-reset {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+}
+
+.laps {
+    margin-top: 12px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.lap-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    margin-bottom: 4px;
+    font-size: 0.85em;
+    color: #aaa;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lap-item .lap-num {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.lap-item .lap-time {
+    font-variant-numeric: tabular-nums;
+}
+
 /* ===== Brand ===== */
 .brand {
     color: rgba(255, 255, 255, 0.3);
-    font-size: 0.75em;
+    font-size: 0.7em;
     letter-spacing: 3px;
     text-transform: uppercase;
 }
 
 .brand i {
     margin-right: 5px;
+}
+
+/* ===== Scrollbar ===== */
+.laps::-webkit-scrollbar {
+    width: 4px;
+}
+
+.laps::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.laps::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 2px;
 }
 
 /* ===== Responsive ===== */
@@ -182,24 +431,13 @@ body {
         height: 260px;
     }
 
-    .hour-hand {
-        height: 65px;
-    }
+    .hour-hand { height: 60px; }
+    .minute-hand { height: 85px; }
+    .second-hand { height: 95px; }
+    .second-hand::after { bottom: -20px; height: 25px; }
 
-    .minute-hand {
-        height: 90px;
-    }
-
-    .second-hand {
-        height: 100px;
-    }
-
-    .number span {
-        font-size: 15px;
-        margin-top: 18px;
-    }
-
-    .digital-time {
-        font-size: 1.6em;
-    }
+    .number span { font-size: 15px; margin-top: 18px; }
+    .digital-time { font-size: 1.6em; }
+    .stopwatch-display { font-size: 1.8em; }
+    .world-clock { grid-template-columns: 1fr; }
 }

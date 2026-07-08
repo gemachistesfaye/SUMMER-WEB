@@ -3,38 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
+    <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="calculator">
+        <!-- Header -->
+        <div class="calc-header">
+            <span class="calc-title"><i class="fas fa-calculator"></i> Calculator</span>
+            <button class="history-toggle" id="historyToggle"><i class="fas fa-clock-rotate-left"></i></button>
+        </div>
+
+        <!-- Display -->
         <div class="display">
+            <div class="display-expression" id="expression"></div>
             <input type="text" id="calculator-display" value="0" readonly>
         </div>
+
+        <!-- Buttons -->
         <div class="buttons">
-            <button class="button clear" data-action="clear">C</button>
-            <button class="button operator" data-action="divide">/</button>
-            <button class="button operator" data-action="multiply">*</button>
-            <button class="button operator" data-action="subtract">-</button>
+            <button class="button clear" data-action="clear"><i class="fas fa-trash"></i></button>
+            <button class="button parens" data-action="parens">( )</button>
+            <button class="button percent" data-action="percent">%</button>
+            <button class="button operator" data-action="divide"><i class="fas fa-divide"></i></button>
 
             <button class="button number">7</button>
             <button class="button number">8</button>
             <button class="button number">9</button>
-            <button class="button operator" data-action="add">+</button>
+            <button class="button operator" data-action="multiply"><i class="fas fa-xmark"></i></button>
 
             <button class="button number">4</button>
             <button class="button number">5</button>
             <button class="button number">6</button>
+            <button class="button operator" data-action="subtract"><i class="fas fa-minus"></i></button>
 
             <button class="button number">1</button>
             <button class="button number">2</button>
             <button class="button number">3</button>
-            <button class="button equal" data-action="calculate">=</button>
+            <button class="button operator" data-action="add"><i class="fas fa-plus"></i></button>
 
-            <button class="button number zero">0</button>
+            <button class="button negate" data-action="negate">+/-</button>
+            <button class="button number">0</button>
             <button class="button decimal" data-action="decimal">.</button>
+            <button class="button equal" data-action="calculate">=</button>
+        </div>
+
+        <!-- History Panel -->
+        <div class="history-panel hidden" id="historyPanel">
+            <div class="history-header">
+                <span>History</span>
+                <button class="history-clear" id="historyClear"><i class="fas fa-trash-can"></i></button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="history-empty">No calculations yet</div>
+            </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
