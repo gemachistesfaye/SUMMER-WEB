@@ -1,109 +1,365 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
-body{
-    background: linear-gradient(135deg, #153677, #4e085f);
-    color: #fff;
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .container {
     width: 100%;
-    max-width: 540px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 40px 30px 70px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 520px;
 }
 
-.row {
+.todo-app {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Header ===== */
+.app-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-header h2 {
+    font-size: 1.8em;
+    color: #fff;
+    font-weight: 700;
+}
+
+.app-header h2 i {
+    color: #667eea;
+    margin-right: 8px;
+}
+
+.app-subtitle {
+    color: #888;
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+/* ===== Stats Bar ===== */
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.2s;
+}
+
+.stat:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.stat span {
+    font-size: 1.5em;
+    font-weight: 800;
+    color: #667eea;
+    display: block;
+}
+
+.stat.active span { color: #ff9800; }
+.stat.done span { color: #4caf50; }
+
+.stat p {
+    font-size: 0.7em;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* ===== Input Row ===== */
+.input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.input-row input:focus {
+    border-color: #667eea;
+}
+
+.input-row input::placeholder {
+    color: #666;
+}
+
+.input-row select {
+    padding: 8px 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ccc;
+    font-size: 0.8em;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.input-row select option {
+    background: #1a1a2e;
+    color: #ccc;
+}
+
+#add-button {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background: #edeef0;
-    border-radius: 30px;
-    padding-left: 20px;
-    margin-bottom: 25px;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-input {
+#add-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* ===== Filters ===== */
+.filters {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.filter-btn {
     flex: 1;
-    border: none;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     background: transparent;
-    padding: 10px;
-    font-size: 1em;
-    color: #333;
+    color: #888;
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
 }
 
-button#add-button {
-    border: none;
-    outline: none;
-    padding: 16px 50px;
-    background: #ff5945;
+.filter-btn:hover {
+    border-color: rgba(102, 126, 234, 0.4);
     color: #fff;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 40px;
-    transition: background 0.3s ease;
 }
 
-button#add-button:hover {
-    background: #e04a3b;
+.filter-btn.active {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+    color: #667eea;
 }
 
-ul#list-container li{
+/* ===== Task List ===== */
+#list-container {
     list-style: none;
-    font-size: 1.1em;
-    padding: 12px 8px 12px 50px ;
-    user-select: none;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+#list-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+#list-container::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 2px;
+}
+
+#list-container li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    margin-bottom: 8px;
     cursor: pointer;
-    position: relative;
-    color: #333;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: slideIn 0.3s ease-out;
 }
 
-ul#list-container li::before{
-    content: '';
-    position: absolute;
-    height: 28px;
-    width: 28px;
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-15px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+#list-container li:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Custom Checkbox */
+.task-check {
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background-image: url('images/unchecked.png');
-    background-size: cover;
-    background-position: center;
-    top: 8px;
-    left: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
 }
 
-ul#list-container li.checked{
-    color: #555;
+.task-check i {
+    font-size: 0.7em;
+    color: transparent;
+    transition: color 0.2s;
+}
+
+#list-container li.checked .task-check {
+    background: #4caf50;
+    border-color: #4caf50;
+}
+
+#list-container li.checked .task-check i {
+    color: #fff;
+}
+
+/* Task Text */
+.task-text {
+    flex: 1;
+    color: #ddd;
+    font-size: 0.95em;
+    line-height: 1.4;
+    transition: all 0.2s;
+}
+
+#list-container li.checked .task-text {
+    color: #666;
     text-decoration: line-through;
 }
 
-ul#list-container li.checked::before{
-    background-image: url('images/checked.png');
+/* Priority Badge */
+.task-priority {
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.65em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
 }
 
-ul#list-container li span{
-    position: absolute;
-    right: 0;
-    top: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-    color: #555;
-    line-height: 40px;
+.task-priority.high { background: rgba(244,67,54,0.2); color: #f44336; }
+.task-priority.medium { background: rgba(255,152,0,0.2); color: #ff9800; }
+.task-priority.low { background: rgba(76,175,80,0.2); color: #4caf50; }
+
+/* Delete Button */
+.task-delete {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(244,67,54,0.1);
+    color: #f44336;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    opacity: 0;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+#list-container li:hover .task-delete {
+    opacity: 1;
+}
+
+.task-delete:hover {
+    background: rgba(244,67,54,0.3);
+}
+
+/* ===== Empty State ===== */
+.empty-state {
     text-align: center;
-    border-radius: 50%;
-    transition: background 0.3s;
+    padding: 40px 20px;
+    color: #555;
 }
 
-ul#list-container li span:hover{
-    background: #edeef0;
+.empty-state i {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    opacity: 0.3;
+}
+
+.empty-state.hidden {
+    display: none;
+}
+
+/* ===== Clear All ===== */
+.clear-all {
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.clear-all.hidden {
+    display: none;
+}
+
+#clearAllBtn {
+    background: rgba(244,67,54,0.1);
+    border: 1px solid rgba(244,67,54,0.2);
+    color: #f44336;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+#clearAllBtn:hover {
+    background: rgba(244,67,54,0.25);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 400px) {
+    .todo-app { padding: 20px; }
+    .input-row { flex-wrap: wrap; }
+    .input-row input { min-width: 0; }
+    .input-row select { width: 100%; }
+    #add-button { width: 100%; height: 42px; }
 }

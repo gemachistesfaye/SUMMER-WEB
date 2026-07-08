@@ -458,6 +458,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initial Setup ---
     populateStations();
 
+    // Swap stations button
+    const swapBtn = document.getElementById('swapStations');
+    if (swapBtn) {
+        swapBtn.addEventListener('click', () => {
+            const temp = fromStationSelect.value;
+            fromStationSelect.value = toStationSelect.value;
+            toStationSelect.value = temp;
+            updateRouteInfo();
+        });
+    }
+
     // Set min date for departure to today
     const today = new Date();
     const todayFormatted = today.toISOString().split('T')[0];

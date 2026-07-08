@@ -3,32 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethio-Djibouti Railway - Easy Booking</title>
+    <title>Ethio-Djibouti Railway</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div class="main-wrapper">
+        <!-- Header -->
         <header class="app-header">
-            <h1 class="app-title">Ethio-Djibouti Railway </h1>
-            <p class="app-subtitle">Connecting Ethiopia & Djibouti</p>
+            <div class="header-bg"></div>
+            <div class="header-content">
+                <div class="train-icon"><i class="fas fa-train"></i></div>
+                <h1 class="app-title">Ethio-Djibouti Railway</h1>
+                <p class="app-subtitle">Connecting Ethiopia & Djibouti</p>
+                <div class="header-stats">
+                    <span><i class="fas fa-route"></i> 7 Stations</span>
+                    <span><i class="fas fa-clock"></i> 10-12 hrs</span>
+                    <span><i class="fas fa-ticket"></i> Easy Booking</span>
+                </div>
+            </div>
         </header>
 
+        <!-- Booking Card -->
         <div class="booking-app-card">
-            <h2 class="card-heading">Find Your Train</h2>
+            <h2 class="card-heading"><i class="fas fa-search"></i> Find Your Train</h2>
 
             <form class="booking-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="from-station">Departure Station</label>
+                        <label for="from-station"><i class="fas fa-circle-dot"></i> From</label>
                         <select id="from-station" required>
                             <option value="">Select departure</option>
                         </select>
                     </div>
+                    <div class="swap-btn-wrap">
+                        <button type="button" class="swap-btn" id="swapStations"><i class="fas fa-right-left"></i></button>
+                    </div>
                     <div class="form-group">
-                        <label for="to-station">Arrival Station</label>
+                        <label for="to-station"><i class="fas fa-location-dot"></i> To</label>
                         <select id="to-station" required>
                             <option value="">Select arrival</option>
                         </select>
@@ -37,12 +50,12 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="departure-date">Departure Date</label>
+                        <label for="departure-date"><i class="fas fa-calendar"></i> Departure</label>
                         <input type="date" id="departure-date" required>
                         <div class="date-guidance" id="departure-date-guidance"></div>
                     </div>
                     <div class="form-group">
-                        <label for="return-date">Return Date (Optional)</label>
+                        <label for="return-date"><i class="fas fa-calendar-check"></i> Return (Optional)</label>
                         <input type="date" id="return-date">
                         <div class="date-guidance" id="return-date-guidance"></div>
                     </div>
@@ -50,34 +63,42 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="ticket-class">Travel Class</label>
+                        <label for="ticket-class"><i class="fas fa-star"></i> Class</label>
                         <select id="ticket-class" required>
                             <option value="economy">Economy</option>
                             <option value="business">Business</option>
                             <option value="first">First Class</option>
                         </select>
                     </div>
-                    <div class="form-group passenger-input-group">
-                        <label for="adult-passengers">Adults (12+)</label>
+                    <div class="form-group">
+                        <label for="adult-passengers"><i class="fas fa-user"></i> Adults</label>
                         <input type="number" id="adult-passengers" min="1" value="1" required>
                     </div>
-                    <div class="form-group passenger-input-group">
-                        <label for="child-passengers">Children (2-11)</label>
+                    <div class="form-group">
+                        <label for="child-passengers"><i class="fas fa-child"></i> Children</label>
                         <input type="number" id="child-passengers" min="0" value="0">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="passenger-name">Full Name</label>
-                    <input type="text" id="passenger-name" placeholder="e.g., John Doe" required>
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label for="passenger-name"><i class="fas fa-id-card"></i> Full Name</label>
+                        <input type="text" id="passenger-name" placeholder="e.g., John Doe" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="passenger-phone">Phone Number (+2519XXXXXXXX)</label>
-                    <input type="tel" id="passenger-phone" pattern="^\+2519\d{8}$" placeholder="+2519XXXXXXXX" required>
+
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label for="passenger-phone"><i class="fas fa-phone"></i> Phone (+2519XXXXXXXX)</label>
+                        <input type="tel" id="passenger-phone" pattern="^\+2519\d{8}$" placeholder="+2519XXXXXXXX" required>
+                    </div>
                 </div>
 
                 <div id="route-info-display" class="route-info-display hidden">
-                    <h3>Route Details:</h3>
+                    <div class="route-info-header">
+                        <i class="fas fa-train-route"></i>
+                        <h3>Route Details</h3>
+                    </div>
                     <p id="route-duration"><i class="far fa-clock"></i> Travel Time: </p>
                     <p id="route-notes"><i class="fas fa-info-circle"></i> Notes: </p>
                 </div>
@@ -87,35 +108,49 @@
                 </button>
             </form>
 
+            <!-- Results -->
             <div id="booking-results" class="results-section hidden">
-                <h3 class="section-sub-heading">Available Tickets</h3>
-                <ul id="ticket-list" class="ticket-list">
-                    </ul>
-                <p id="no-results-message" class="no-results-message hidden">No tickets found for your criteria. Try different dates or routes.</p>
+                <h3 class="section-sub-heading"><i class="fas fa-ticket"></i> Available Tickets</h3>
+                <ul id="ticket-list" class="ticket-list"></ul>
+                <p id="no-results-message" class="no-results-message hidden">No tickets found. Try different dates or routes.</p>
             </div>
 
+            <!-- Confirmation -->
             <div id="confirmation-message" class="confirmation-section hidden">
-                <h3 class="section-sub-heading confirmed-heading"><i class="fas fa-check-circle"></i> Booking Confirmed!</h3>
-                <p>Dear <strong id="conf-name"></strong>, your booking is requested. Details:</p>
-                <p><strong>Booking Ref:</strong> <span id="conf-ref"></span></p>
-                <p><strong>Route:</strong> <span id="conf-route"></span></p>
-                <p><strong>Departure:</strong> <span id="conf-departure-date"></span> at <span id="conf-departure-time"></span></p>
-                <p id="conf-return-info" class="hidden"><strong>Return:</strong> <span id="conf-return-date"></span> at <span id="conf-return-time"></span></p>
-                <p><strong>Adults:</strong> <span id="conf-adults"></span>, <strong>Children:</strong> <span id="conf-children"></span></p>
-                <p><strong>Class:</strong> <span id="conf-class"></span></p>
-                <p><strong>Total Amount:</strong> <span id="conf-amount"></span></p>
+                <div class="conf-header">
+                    <div class="conf-icon"><i class="fas fa-check"></i></div>
+                    <h3>Booking Confirmed!</h3>
+                </div>
+                <div class="conf-details">
+                    <div class="conf-row"><span class="conf-label">Passenger</span><span id="conf-name"></span></div>
+                    <div class="conf-row"><span class="conf-label">Booking Ref</span><span id="conf-ref" class="conf-ref"></span></div>
+                    <div class="conf-row"><span class="conf-label">Route</span><span id="conf-route"></span></div>
+                    <div class="conf-row"><span class="conf-label">Departure</span><span><span id="conf-departure-date"></span> at <span id="conf-departure-time"></span></span></div>
+                    <p id="conf-return-info" class="hidden"><span class="conf-label">Return</span><span><span id="conf-return-date"></span> at <span id="conf-return-time"></span></span></p>
+                    <div class="conf-row"><span class="conf-label">Passengers</span><span>Adults: <span id="conf-adults"></span>, Children: <span id="conf-children"></span></span></div>
+                    <div class="conf-row"><span class="conf-label">Class</span><span id="conf-class"></span></div>
+                    <div class="conf-row conf-total"><span class="conf-label">Total</span><span id="conf-amount"></span></div>
+                </div>
                 <div class="payment-info">
-                    <p>Please complete payment within **24 hours**. Instructions sent to: <strong id="conf-phone"></strong>.</p>
+                    <p><i class="fas fa-mobile-screen-button"></i> Payment Instructions</p>
+                    <p>Complete payment within <strong>24 hours</strong>. Instructions sent to: <strong id="conf-phone"></strong></p>
                     <div class="simulated-sms-box">
                         <span id="simulated-sms-text"></span>
                     </div>
-                    <p class="disclaimer"><em>(This is a simulated message for demonstration.)</em></p>
+                    <p class="disclaimer"><i class="fas fa-circle-info"></i> This is a simulated message for demonstration.</p>
                 </div>
-                <button class="btn-new-booking" onclick="window.location.reload();">Book Another Ticket</button>
+                <button class="btn-new-booking" onclick="window.location.reload();">
+                    <i class="fas fa-plus"></i> Book Another Ticket
+                </button>
             </div>
-        </div><footer class="app-footer">
-            <p>&copy; 2025 Ethio-Djibouti Railway. All Rights Reserved.</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p><i class="fas fa-train"></i> Ethio-Djibouti Railway &copy; 2025. All Rights Reserved.</p>
         </footer>
-    </div><script src="script.js"></script>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

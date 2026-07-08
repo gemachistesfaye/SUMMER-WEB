@@ -3,22 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List App</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="container">
+    <div class="container">
+        <div class="todo-app">
+            <!-- Header -->
+            <div class="app-header">
+                <h2><i class="fas fa-list-check"></i> My Tasks</h2>
+                <p class="app-subtitle" id="dateDisplay"></p>
+            </div>
 
-    <div class="todo-app">
-        <h2>To-Do-List</h2> 
-        <div class="row"><input type="text" id="input-box" placeholder="Add your task">
-        <button id="add-button">Add</button></div>
+            <!-- Stats -->
+            <div class="stats-bar">
+                <div class="stat"><span id="totalCount">0</span><p>Total</p></div>
+                <div class="stat active"><span id="pendingCount">0</span><p>Pending</p></div>
+                <div class="stat done"><span id="doneCount">0</span><p>Done</p></div>
+            </div>
 
-    <ul id="list-container"></ul>
+            <!-- Input -->
+            <div class="input-row">
+                <input type="text" id="input-box" placeholder="What needs to be done?">
+                <select id="priority-select">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <button id="add-button"><i class="fas fa-plus"></i></button>
+            </div>
 
+            <!-- Filters -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="done">Done</button>
+            </div>
+
+            <!-- Task List -->
+            <ul id="list-container"></ul>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-clipboard-list"></i>
+                <p>No tasks yet. Add one above!</p>
+            </div>
+
+            <!-- Clear All -->
+            <div class="clear-all hidden" id="clearAll">
+                <button id="clearAllBtn"><i class="fas fa-trash-can"></i> Clear Completed</button>
+            </div>
+        </div>
     </div>
-  </div>  
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
